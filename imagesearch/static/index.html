@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>ImageSearch — Collect your inspiration</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <header><a class="brand" href="/">◈ <span>ImageSearch</span></a><span class="local"><i></i> LOCAL WORKSPACE</span></header>
+  <main>
+    <section class="intro"><div class="eyebrow">FROM A FEW WORDS TO A WHOLE COLLECTION</div><h1>Find it. Collect it.<br><span>Make something.</span></h1><p>Turn your keywords into folders of images.<br>Search the web, gather originals, keep the sources.</p></section>
+    <div class="workspace">
+      <section class="panel settings">
+        <div class="section-top"><h2>New collection</h2><span class="step">01 / SET UP</span></div>
+        <form id="form">
+          <label for="keywords">What are you looking for?</label>
+          <textarea id="keywords" rows="5" placeholder="Brutalist architecture&#10;Vintage botanical illustrations&#10;Coastal landscapes" required maxlength="30000"></textarea>
+          <div class="field-note">One keyword or phrase per line. <label class="upload" for="keyword-file">Import .txt</label><input type="file" id="keyword-file" accept=".txt,text/plain" hidden></div>
+          <div class="two"><div><label for="count">Images per keyword</label><input id="count" type="number" min="1" max="500" value="20" required></div><div><label for="engine">Search engine</label><select id="engine"><option value="auto">Automatic</option><option value="bing">Bing</option><option value="duckduckgo">DuckDuckGo</option></select></div></div>
+          <label for="collection">Collection name</label><input id="collection" placeholder="My inspiration" value="My collection" maxlength="100">
+          <label for="license">Usage rights filter</label><select id="license"><option value="all">All images · no license filter</option><option value="any">Creative Commons</option><option value="Public">Public domain</option><option value="Share">Free to share and use</option><option value="ShareCommercially">Free to share and use commercially</option><option value="Modify">Free to modify, share and use</option><option value="ModifyCommercially">Free to modify and use commercially</option></select>
+          <p class="rights">All images can include copyrighted works. License filters use DuckDuckGo and reflect search-engine labels; verify reuse rights at the source.</p>
+          <details><summary>More options <span>+</span></summary><div class="two"><div><label for="min-width">Min. width (px)</label><input id="min-width" type="number" min="0" max="20000" value="0"></div><div><label for="min-height">Min. height (px)</label><input id="min-height" type="number" min="0" max="20000" value="0"></div></div><div class="two"><div><label for="safesearch">Safe search · DuckDuckGo</label><select id="safesearch"><option value="moderate">Moderate</option><option value="on">On</option><option value="off">Off</option></select></div><div><label for="max-mb">Max. file size (MB)</label><input id="max-mb" type="number" min="1" max="100" value="20"></div></div><p class="rights">Bing uses its own default Safe Search settings. Choose DuckDuckGo to apply the setting above.</p></details>
+          <button class="primary" id="start" type="submit">Start collecting <span>↗</span></button>
+          <div id="estimate">20 images per keyword</div>
+          <p id="form-error" class="error" role="alert"></p>
+        </form>
+        <div class="video-section">
+          <div class="section-top"><h2>YouTube download</h2><span class="step">FROM A LINK</span></div>
+          <form id="video-form">
+            <label for="video-url">YouTube video link</label>
+            <input id="video-url" type="url" placeholder="https://www.youtube.com/watch?v=…" maxlength="2048" required>
+            <label for="video-quality">Video quality</label>
+            <select id="video-quality"><option value="best">Best available</option><option value="1080">Up to 1080p</option><option value="720">Up to 720p</option><option value="480">Up to 480p</option></select>
+            <p class="rights">Download one video or Short with audio. FFmpeg enables higher resolutions; without it, available combined formats are used. Only download videos you have permission to save.</p>
+            <button class="primary" id="video-start" type="submit">Download video <span>↓</span></button>
+            <p id="video-error" class="error" role="alert"></p>
+          </form>
+        </div>
+      </section>
+      <section class="results">
+        <div class="section-top"><h2 id="results-title">Your collection</h2><span id="badge" class="badge">READY WHEN YOU ARE</span></div>
+        <div id="empty" class="empty"><div class="tile-art"><div>◒</div><div>✳</div><div>◩</div></div><h3>A little curiosity goes a long way.</h3><p>Add your keywords and start collecting.<br>Your downloaded images will appear here.</p><div class="features"><span>Original image files</span><span>Sources included</span><span>No API key</span></div></div>
+        <div id="job" hidden>
+          <div class="stats"><strong id="downloaded">0</strong><span> / <span id="target">0</span> <span id="download-unit">images collected</span></span><button id="cancel" class="quiet">Stop download</button></div>
+          <progress id="progress" max="100" value="0"></progress>
+          <p id="message" role="status" aria-live="polite"></p>
+          <div id="keyword-status"></div>
+          <div class="destination"><span class="eyebrow">SAVED TO</span><code id="folder"></code><div class="actions"><button id="open" class="quiet">Open folder ↗</button><a id="manifest" target="_blank" rel="noopener">Manifest</a><a id="csv" download="sources.csv">Sources CSV ↓</a></div></div>
+          <div id="gallery" class="gallery"></div>
+          <div id="video-files" class="video-files" hidden></div>
+          <details id="error-details" hidden><summary><span id="error-count"></span> skipped / failed attempts</summary><ul id="errors"></ul></details>
+        </div>
+        <p class="storage">OUTPUT DIRECTORY <code id="output-root">./downloads</code></p>
+      </section>
+    </div>
+    <footer><span>Built for a curious mind.</span><span>BING + DUCKDUCKGO / LOCAL FILES</span></footer>
+  </main>
+</body>
+</html>
